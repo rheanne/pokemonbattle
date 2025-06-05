@@ -4,8 +4,9 @@ import os
 
 pygame.font.init()
 pygame.mixer.init()
+print(os.path.abspath(os.path.join('ASSETS', 'pokemonbattletheme.mp3')))
 
-pygame.mixer.music.load(os.path.join('Assets','pokemonbattletheme.mp3')) # added background music
+pygame.mixer.music.load(os.path.join('ASSETS','pokemonbattletheme.mp3')) # added background music
 pygame.mixer.music.play(loops=15, start=0.0, fade_ms=0)
 
 all_fonts = pygame.font.get_fonts()
@@ -22,9 +23,9 @@ YELLOW = (255, 255, 0)
 BORDER = pygame.Rect(0, HEIGHT//2-5, WIDTH, 10)
 
 
-CHAR_FIRE_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'rawr.mp3' ))
-PIKA_FIRE_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'pikachu.mp3' ))
-BOOM_HIT_SOUND = pygame.mixer.Sound(os.path.join('Assets', 'boom.wav'))
+CHAR_FIRE_SOUND = pygame.mixer.Sound(os.path.join('ASSETS', 'rawr.mp3' ))
+PIKA_FIRE_SOUND = pygame.mixer.Sound(os.path.join('ASSETS', 'pikachu.mp3' ))
+BOOM_HIT_SOUND = pygame.mixer.Sound(os.path.join('ASSETS', 'boom.wav'))
 
 
 HEALTH_FONT = pygame.font.SysFont('arial', 40)
@@ -40,15 +41,15 @@ CHARIZARD_HIT = pygame.USEREVENT + 1
 PIKA1_HIT = pygame.USEREVENT + 2
 
 CHARIZARD_IMAGE = pygame.image.load(
-     os.path.join('Assets', 'charizard.png'))
+     os.path.join('ASSETS', 'charizard.png'))
 CHARIZARD_IMAGE = pygame.transform.rotate(pygame.transform.scale(CHARIZARD_IMAGE, (IMAGE_WIDTH, IMAGE_HEIGHT)), 0)
 
 PIKA1_IMAGE = pygame.image.load(
-     os.path.join('Assets', 'pika1.png'))
+     os.path.join('ASSETS', 'pika1.png'))
 PIKA1_IMAGE = pygame.transform.rotate(pygame.transform.scale(PIKA1_IMAGE, (IMAGE_WIDTH, IMAGE_HEIGHT)), 0 )
 
-GRASS = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'grass.png')), (WIDTH, HEIGHT))
-STADIUM = pygame.transform.scale(pygame.image.load(os.path.join('Assets', 'stadium.png' )), (WIDTH, HEIGHT))
+GRASS = pygame.transform.scale(pygame.image.load(os.path.join('ASSETS', 'grass.png')), (WIDTH, HEIGHT))
+STADIUM = pygame.transform.scale(pygame.image.load(os.path.join('ASSETS', 'stadium.png' )), (WIDTH, HEIGHT))
 
 def draw_window(charizard, pika1, pika1_bullets, charizard_bullets, charizard_health, pika1_health):
         WIN.blit(STADIUM, (0, 0))
@@ -75,26 +76,25 @@ def draw_window(charizard, pika1, pika1_bullets, charizard_bullets, charizard_he
         pygame.display.update()
 
 def charizard_movement(keys_pressed, charizard):
-             #charizard
-    if keys_pressed[pygame.K_z] and charizard.x - VEL > 0: #left
-            charizard.x -= VEL
-    if keys_pressed[pygame.K_s] and charizard.y - VEL > 0: #up
-            charizard.y -= VEL
-    if keys_pressed[pygame.K_x] and charizard.y + VEL + charizard.height < BORDER.y: #down
-            charizard.y += VEL
-    if keys_pressed[pygame.K_c] and charizard.x + VEL + charizard.height < WIDTH: #right
-            charizard.x += VEL
+    if keys_pressed[pygame.K_a] and charizard.x - VEL > 0:  # left
+        charizard.x -= VEL
+    if keys_pressed[pygame.K_w] and charizard.y - VEL > 0:  # up
+        charizard.y -= VEL
+    if keys_pressed[pygame.K_s] and charizard.y + VEL + charizard.height < BORDER.y:  # down
+        charizard.y += VEL
+    if keys_pressed[pygame.K_d] and charizard.x + VEL + charizard.width < WIDTH:  # right
+        charizard.x += VEL
+
 
 def pika1_movement(keys_pressed, pika1):
-             #charizard
-    if keys_pressed[pygame.K_j] and pika1.x - VEL > 0: #left
-            pika1.x -= VEL
-    if keys_pressed[pygame.K_i] and pika1.y - VEL > BORDER.y: #up
-            pika1.y -= VEL
-    if keys_pressed[pygame.K_k] and pika1.y + VEL + pika1.height < HEIGHT: #down
-            pika1.y += VEL
-    if keys_pressed[pygame.K_l] and pika1.x + VEL + pika1.height < WIDTH: #right
-            pika1.x += VEL
+    if keys_pressed[pygame.K_LEFT] and pika1.x - VEL > 0:  # left
+        pika1.x -= VEL
+    if keys_pressed[pygame.K_UP] and pika1.y - VEL > BORDER.y:  # up
+        pika1.y -= VEL
+    if keys_pressed[pygame.K_DOWN] and pika1.y + VEL + pika1.height < HEIGHT:  # down
+        pika1.y += VEL
+    if keys_pressed[pygame.K_RIGHT] and pika1.x + VEL + pika1.width < WIDTH:  # right
+        pika1.x += VEL
 
 def handle_bullets(charizard_bullets, pika1_bullets, charizard, pika1):
         for bullet in pika1_bullets:
